@@ -40,3 +40,42 @@ const addOne = a => a + 1; //if you only have 1 argument (a) then remove parenth
 
 const addRandom = () => 1 + 2; //if you have no arguments, you must include empty parenthesis.
 console.log(summarizeUser(name, age, hasHobbies)); 
+
+//arrow function works good here:
+document.addEventListener('click', function(){
+    console.log('Click')
+})
+
+//instead, write like this, using arrow func.:
+document.addEventListener('click', () => console.log('Click'))
+
+//the REAL advantage of arrow functions is that they use the .this keyword differently.
+
+class Person {
+    constructor(name){
+        this.name = name
+    }
+
+    printNameArrow() {
+        setTimeout(() => {
+            console.log('Arrow: ' + this.name)
+        }, 100)
+    }
+
+    printNameFunction() {
+        setTimeout(function() {
+            console.log('Function: ' + this.name)
+        }, 100)
+    }
+}
+
+let person = new Person('Bob')
+person.printNameArrow() // called in global scope
+person.printNameFunction() // called in global scope
+
+//you'll notice that when you call the fucntion, the printNameFunction will not return a name
+//this is because in a regular function, JS defines .this based on where the function is called
+//therefore, .this would have the same scope as person.printNameFunction()... name not defined in global scope
+//regular functions redefine the scope of the .this keyword to whatever scope they are called in
+//arrow functions do not, giving them a huge advantage -- .this is not redefined
+//this agrees with most other programming languages.
